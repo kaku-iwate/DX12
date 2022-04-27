@@ -16,4 +16,4 @@
 
 6.PBR  
 
-[PBR.pdf](https://github.com/kaku-iwate/DX12/files/8569693/PBR.pdf)
+![PBR_00](https://user-images.githubusercontent.com/79561572/165465850-f52fa41e-b1e3-47d2-b9dc-05c2be08ac92.jpg)
