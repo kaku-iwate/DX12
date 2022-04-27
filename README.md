@@ -18,11 +18,8 @@
 
 ## 延迟渲染
 ![DeferredShading_00](https://user-images.githubusercontent.com/79561572/165468171-a47098ce-533f-41bc-b44f-c55c2f6fd4c1.jpg)
-
 <p align="center"><a href="#各个功能的简要展示">🔙 返回目录 🔙</a></p><br>
 
 ## PBR
 ![PBR_00](https://user-images.githubusercontent.com/79561572/165465850-f52fa41e-b1e3-47d2-b9dc-05c2be08ac92.jpg)
-
-
 <p align="center"><a href="#各个功能的简要展示">🔙 返回目录 🔙</a></p><br>
