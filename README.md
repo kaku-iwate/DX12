@@ -40,6 +40,9 @@ PBR核心为渲染方程, 其公式如下
 
 在程序运行中可用WASD进行移动， 按住鼠标左键可转动视角.
 
-![image](https://user-images.githubusercontent.com/79561572/165524437-244b659c-324a-4d66-8435-3736078455e2.png)
+![PBR](https://user-images.githubusercontent.com/79561572/165525515-40f28063-5ff5-4b9e-976c-191f62695aec.png)
+
+
+
 
 <p align="center"><a href="#DX12">🔙 返回目录 🔙</a></p><br>
