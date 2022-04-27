@@ -16,5 +16,5 @@
 
 [6.PBR](#PBR)
 
-- **[PBR]**
+- [**PBR**]
 ![PBR_00](https://user-images.githubusercontent.com/79561572/165465850-f52fa41e-b1e3-47d2-b9dc-05c2be08ac92.jpg)
