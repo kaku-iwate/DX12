@@ -29,8 +29,9 @@ MSBuild 8020错误 : 项目代码都使用Visual Studio 2019构建, 若使用低
 ### 2. 实现效果图
 ![edge](https://user-images.githubusercontent.com/79561572/165698802-85d70bd0-c269-4e1d-955f-b76e12d5bd1f.png)
 
-左上为源图像, 右上为索贝尔算子的逆图像, 左下为法线边缘, 右下为深度边缘.  
-
+左上为源图像, 右上为索贝尔算子的逆图像  
+左下为法线边缘, 右下为深度边缘.  
+  
 <p align="center"><a href="#DX12">🔙 返回目录 🔙</a></p><br>
 
 
