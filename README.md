@@ -25,9 +25,20 @@ MSBuild 8020错误 : 项目代码都使用Visual Studio 2019构建, 若使用低
 
 ## 几何着色器
 ### 1. 实现
-  
+几何着色器擅长创建与销毁几何图形. 在看过的示例中, 公告牌技术与粒子系统均使用几何着色器进行实现. 虽然对于粒子系统很有兴趣, 但因时间关系没能深入学习并落实到自己的项目中有些遗憾.
+具体实现中, 为了便于观察细分将PSO设置线框模式, 并由数字键1,2,3(位于QWER键上面的数字键)来变更细分等级.  
     
 ### 2. 实现效果图  
+  
+![gs1](https://user-images.githubusercontent.com/79561572/165715665-791bcd18-e1c5-424a-b10a-10f0f0053b53.png)  
+未经细分的球体  
+  
+![gs2](https://user-images.githubusercontent.com/79561572/165715825-b734d206-dc9d-4880-91e2-22c881afce37.png)  
+一次细分后的球体  
+  
+  
+![gs3](https://user-images.githubusercontent.com/79561572/165715878-67e51b01-c0fd-435c-8e09-a8b293f407f4.png)  
+二次细分后的球体  
 
   
 <p align="center"><a href="#DX12">🔙 返回目录 🔙</a></p><br>  
