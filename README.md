@@ -41,6 +41,8 @@ MSBuild 8020错误 : 项目代码都使用Visual Studio 2019构建, 若使用低
   
 
 ### 2. 实现效果图
+按住鼠标左键可转动视角, 按住鼠标右键可控制距离.
+
 ![edge](https://user-images.githubusercontent.com/79561572/165698802-85d70bd0-c269-4e1d-955f-b76e12d5bd1f.png)
 
 左上为源图像, 右上为索贝尔算子的逆图像  
