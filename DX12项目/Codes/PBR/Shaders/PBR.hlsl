@@ -101,8 +101,8 @@ float4 PS(VertexOut pin) : SV_Target
     float3 kd = (1 - F) * (1 - metallic);
     float3 diffuse = kd * diffuseAlbedo.rgb / PI;	
 	// 可选的迪士尼漫反射模型
-#if Disney
-    float FD90 = 0.5f + 2 * HdotV * HdotV * roughness;
+#ifdef Disney
+    float FD90 = 0.5f + 2 * VdotH * VdotH * roughness;
     float FdV = 1 + (FD90 - 1) * pow(1 - NdotV, 5);
     float FdL = 1 + (FD90 - 1) * pow(1 - NdotL, 5);
     kd = FdV * FdL * (1 - metallic);
