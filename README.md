@@ -96,7 +96,17 @@ MSBuild 8020错误 : 项目代码都使用Visual Studio 2019构建, 若使用低
 
 ![图片1](https://user-images.githubusercontent.com/79561572/165554169-2dc04a7f-801d-40be-86e0-d8a0bc70fab9.png)
 
-在具体实现中, 第一步搜索平均深度的范围定为了固定大小. 而第三步中过多的采样会对帧率影响极大, 因此使用16个点的泊松分布采样. 但是在filter较大时因采样分布固定且数量太少会导致阴影分层很严重, 如果对泊松分布进行随机旋转, 可以改善分层, 但又会导致噪点问题. 没能找到较好的解决方法, 所以将filter大小限制在较小范围内以来改善分层问题.
+在具体实现中, 第一步搜索平均深度的范围定为了固定大小. 而第三步中过多的采样会对帧率影响极大. 因此使用16个点的泊松分布采样. 这一部分参考了 Nvidia 的实现:  
+https://developer.download.nvidia.com/whitepapers/2008/PCSS_Integration.pdf  
+但是因为采样分布固定且数量太少会导致阴影分层,特别是filter较大时分层很严重. 效果如下:  
+![shadow1](https://user-images.githubusercontent.com/79561572/166132227-ea0e5b43-225c-4e14-a97a-4d8ad66ee96e.png)    
+1. 阴影分层  
+  
+如果生成伪随机数, 对泊松分布进行旋转, 可以改善分层, 但又会导致噪点问题. 而比噪点更影响观感的是近距离时阴影会有类似于摩尔纹的部分(红圈处), 效果如下:  
+![shadow2-2](https://user-images.githubusercontent.com/79561572/166132338-4d9deaf1-848b-4ccd-984f-0032dfd454c8.png)  
+2. 阴影噪点与摩尔纹
+
+对于这样的噪点与摩尔纹, 或许可以通过计算着色器对其进行高斯模糊来改善. 
 
 ### 2. 实现效果图
 ![PCSS](https://user-images.githubusercontent.com/79561572/165555067-bd7a68e6-a944-48ca-ba73-3d84d9ed82fb.png)  
