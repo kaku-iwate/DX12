@@ -101,9 +101,11 @@ MSBuild 8020错误 : 项目代码都使用Visual Studio 2019构建, 若使用低
 https://developer.download.nvidia.com/whitepapers/2008/PCSS_Integration.pdf  
 但是因为采样分布固定且数量太少会导致阴影分层,特别是filter较大时分层很严重. 效果如下:  
 ![shadow1](https://user-images.githubusercontent.com/79561572/166132227-ea0e5b43-225c-4e14-a97a-4d8ad66ee96e.png)    
-1. 阴影分层  
+<p align="center">1. 阴影分层 </p><br>  
+  
   
 如果生成伪随机数, 对泊松分布进行旋转, 可以改善分层, 但又会导致噪点问题. 而比噪点更影响观感的是近距离时阴影会有类似于摩尔纹的部分(红圈处), 效果如下:  
+  
 ![shadow2-2](https://user-images.githubusercontent.com/79561572/166132338-4d9deaf1-848b-4ccd-984f-0032dfd454c8.png)  
 2. 阴影噪点与摩尔纹
 
