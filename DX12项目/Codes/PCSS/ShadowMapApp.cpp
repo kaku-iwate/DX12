@@ -10,11 +10,14 @@
 #include "FrameResource.h"
 #include "ShadowMap.h"
 
+#include <random>
+
 using Microsoft::WRL::ComPtr;
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 
 const int gNumFrameResources = 3;
+
 
 // Lightweight structure stores parameters to draw a shape.  This will
 // vary from app-to-app.
@@ -213,7 +216,7 @@ bool ShadowMapApp::Initialize()
 	mCamera.SetPosition(0.0f, 2.0f, -15.0f);
  
     mShadowMap = std::make_unique<ShadowMap>(
-        md3dDevice.Get(), 4096, 4096);
+        md3dDevice.Get(), 5000, 5000);
 
 	LoadTextures();
     BuildRootSignature();
@@ -353,6 +356,7 @@ void ShadowMapApp::Draw(const GameTimer& gt)
 
 	auto passCB = mCurrFrameResource->PassCB->Resource();
 	mCommandList->SetGraphicsRootConstantBufferView(1, passCB->GetGPUVirtualAddress());
+
 
     // Bind the sky cube map.  For our demos, we just use one "world" cube map representing the environment
     // from far away, so all objects will use the same cube map and we only need to set it once per-frame.  
@@ -579,6 +583,8 @@ void ShadowMapApp::UpdateMainPassCB(const GameTimer& gt)
 	auto currPassCB = mCurrFrameResource->PassCB.get();
 	currPassCB->CopyData(0, mMainPassCB);
 }
+
+
 
 void ShadowMapApp::UpdateShadowPassCB(const GameTimer& gt)
 {
@@ -1279,9 +1285,20 @@ void ShadowMapApp::BuildRenderItems()
 		auto leftSphereRitem = std::make_unique<RenderItem>();
 		auto rightSphereRitem = std::make_unique<RenderItem>();
 
-		XMMATRIX leftSphereWorld = XMMatrixTranslation(5.0f, 0.5f, -5.0f + i* 1.2f);
-        XMMATRIX rightSphereWorld = XMMatrixTranslation(-5.0f, 0.5f + i * 2, 0.0f);
+        XMMATRIX leftCylWorld = XMMatrixTranslation(-5.0f, 1.5f, -10.0f + i * 7.0f);
 
+		XMMATRIX leftSphereWorld = XMMatrixTranslation(5.0f, 0.5f, -5.0f + i* 1.2f);
+        XMMATRIX rightSphereWorld = XMMatrixTranslation(-5.0f, 0.5f + i * 2, -12);
+
+        XMStoreFloat4x4(&leftCylRitem->World, leftCylWorld);
+        XMStoreFloat4x4(&leftCylRitem->TexTransform, brickTexTransform);
+        leftCylRitem->ObjCBIndex = objCBIndex++;
+        leftCylRitem->Mat = mMaterials["bricks0"].get();
+        leftCylRitem->Geo = mGeometries["shapeGeo"].get();
+        leftCylRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+        leftCylRitem->IndexCount = leftCylRitem->Geo->DrawArgs["cylinder"].IndexCount;
+        leftCylRitem->StartIndexLocation = leftCylRitem->Geo->DrawArgs["cylinder"].StartIndexLocation;
+        leftCylRitem->BaseVertexLocation = leftCylRitem->Geo->DrawArgs["cylinder"].BaseVertexLocation;
 
 		XMStoreFloat4x4(&leftSphereRitem->World, leftSphereWorld);
 		leftSphereRitem->TexTransform = MathHelper::Identity4x4();
@@ -1303,9 +1320,11 @@ void ShadowMapApp::BuildRenderItems()
 		rightSphereRitem->StartIndexLocation = rightSphereRitem->Geo->DrawArgs["sphere"].StartIndexLocation;
 		rightSphereRitem->BaseVertexLocation = rightSphereRitem->Geo->DrawArgs["sphere"].BaseVertexLocation;
 
+        mRitemLayer[(int)RenderLayer::Opaque].push_back(leftCylRitem.get());
 		mRitemLayer[(int)RenderLayer::Opaque].push_back(leftSphereRitem.get());
 		mRitemLayer[(int)RenderLayer::Opaque].push_back(rightSphereRitem.get());
 
+        mAllRitems.push_back(std::move(leftCylRitem));
 		mAllRitems.push_back(std::move(leftSphereRitem));
 		mAllRitems.push_back(std::move(rightSphereRitem));
 	}

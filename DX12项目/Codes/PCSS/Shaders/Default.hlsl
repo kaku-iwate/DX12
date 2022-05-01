@@ -99,8 +99,9 @@ float4 PS(VertexOut pin) : SV_Target
 
     // Light terms.
     float4 ambient = gAmbientLight*diffuseAlbedo;
+    
 
-    // 计算阴影因子
+    // 使用PCSS来计算软阴影
     float3 shadowFactor = float3(1.0f, 1.0f, 1.0f);
     shadowFactor[0] = PCSS(pin.ShadowPosH);
 
