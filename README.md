@@ -96,7 +96,8 @@ MSBuild 8020错误 : 项目代码都使用Visual Studio 2019构建, 若使用低
 
 ![图片1](https://user-images.githubusercontent.com/79561572/165554169-2dc04a7f-801d-40be-86e0-d8a0bc70fab9.png)
 
-在具体实现中, 第一步搜索平均深度的范围定为了固定大小. 而第三步中过多的采样会对帧率影响极大.  因此使用16个点的泊松分布采样. 这一部分参考了 Nvidia 的实现:  
+在具体实现中, 第一步搜索平均深度的范围定为了固定大小. 而第三步中过多的采样会对帧率影响极大.   
+因此使用16个点的泊松分布采样. 这一部分参考了 Nvidia 的实现:  
 https://developer.download.nvidia.com/whitepapers/2008/PCSS_Integration.pdf  
 但是因为采样分布固定且数量太少会导致阴影分层,特别是filter较大时分层很严重. 效果如下:  
 ![shadow1](https://user-images.githubusercontent.com/79561572/166132227-ea0e5b43-225c-4e14-a97a-4d8ad66ee96e.png)    
