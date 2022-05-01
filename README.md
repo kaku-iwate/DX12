@@ -107,12 +107,18 @@ https://developer.download.nvidia.com/whitepapers/2008/PCSS_Integration.pdf
 如果生成伪随机数, 对泊松分布进行旋转, 可以改善分层, 但又会导致噪点问题. 而比噪点更影响观感的是近距离时阴影会有类似于摩尔纹的部分(红圈处), 效果如下:  
   
 ![shadow2-2](https://user-images.githubusercontent.com/79561572/166132338-4d9deaf1-848b-4ccd-984f-0032dfd454c8.png)  
-2. 阴影噪点与摩尔纹
+<p align="center">2. 阴影噪点与摩尔纹 </p><br>  
 
-对于这样的噪点与摩尔纹, 或许可以通过计算着色器对其进行高斯模糊来改善. 
+对于这样的噪点与摩尔纹, 或许可以通过计算着色器对其进行高斯模糊来改善, 但这又太消耗性能.  
+后面参考了 Games 202 作业1的框架, 其中对于每个纹理坐标都重新生成一次随机的泊松分布盘, 只需增大一些泊松分布盘以及采样数量即可得到较好的软阴影, 效果如下:  
+  ![shadow3](https://user-images.githubusercontent.com/79561572/166133134-6e5982a6-d952-4256-b859-9b29011d032b.png)  
+<p align="center">3. 每次重新生成泊松分布盘 </p><br>  
 
-### 2. 实现效果图
-![PCSS](https://user-images.githubusercontent.com/79561572/165555067-bd7a68e6-a944-48ca-ba73-3d84d9ed82fb.png)  
+
+### 2. 最终效果图
+
+![shadow3](https://user-images.githubusercontent.com/79561572/166133171-437b3124-261b-409a-9180-403a9151e4f2.png)  
+虽然PCSS软阴影的实现流程很容易理解, 但想要高效实现却很难.
 
 
 <p align="center"><a href="#DX12">🔙 返回目录 🔙</a></p><br>
