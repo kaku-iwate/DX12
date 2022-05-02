@@ -17,11 +17,13 @@ MSBuild 8020错误 : 项目代码都使用Visual Studio 2019构建, 若使用低
 
 [3.基于法线贴图与位移贴图的波浪模拟](#波浪模拟)
 
-[4.PCSS](#PCSS软阴影)
+[4.泛光效果](#Bloom)
 
-[5.延迟渲染](#延迟渲染)
+[5.PCSS](#PCSS软阴影)
 
-[6.PBR](#PBR)
+[6.延迟渲染](#延迟渲染)
+
+[7.PBR](#PBR)
 
 ## 几何着色器
 ### 1. 实现
@@ -81,9 +83,33 @@ MSBuild 8020错误 : 项目代码都使用Visual Studio 2019构建, 若使用低
 
 
 
-<p align="center"><a href="#DX12">🔙 返回目录 🔙</a></p><br>
+<p align="center"><a href="#DX12">🔙 返回目录 🔙</a></p><br>  
 
+## Bloom
+### 1. Bloom实现概述
+泛光效果的步骤如下:  
+1. 正常渲染  
+2. 提取出高亮部分  
+3. 对高亮部分进行模糊 
+4. 对原图像以及模糊后的高亮部分图像进行叠加  
 
+其中模糊部分使用了高斯模糊, 并利用其可分离性, 将 N² 次采样降低为 2N. 对于其他不具备分离性的卷积操作, 也可以这样操作来减少采样, 优化性能.
+
+在具体实现中, 问题主要出现在最后一步上, 直接叠加的话, 高亮部分画面一片白, 观感很差.  
+给高亮部分加个权值或者使用 Reinhard 色调映射(其公式为 A / (A + 1))的话, 效果也不是很好.  
+  
+后面参考了 LearnOpenGL 上 HDR 部分的曝光色调映射.  
+https://learnopengl-cn.github.io/05%20Advanced%20Lighting/06%20HDR/  
+曝光色调映射公式为: 1.0 - exp(-Color * exposure), 其中 exposure 可理解为曝光度, 其值越高, 暗部细节越多, 反之则亮部细节越多.  
+
+### 实现效果图  
+  
+![bloom](https://user-images.githubusercontent.com/79561572/166232270-1c9617a4-0615-4c27-b158-ee16efdd7407.png)  
+  
+  其中左下角小窗口为高亮部分模糊后的结果.
+  
+  <p align="center"><a href="#DX12">🔙 返回目录 🔙</a></p><br>  
+    
 ## PCSS软阴影
 ### 1. PCSS软阴影实现概述
 
@@ -109,7 +135,7 @@ https://developer.download.nvidia.com/whitepapers/2008/PCSS_Integration.pdf
 ![shadow2-2](https://user-images.githubusercontent.com/79561572/166132338-4d9deaf1-848b-4ccd-984f-0032dfd454c8.png)  
 <p align="center">2. 阴影噪点与摩尔纹 </p><br>  
 
-对于这样的噪点与摩尔纹, 在虎书上看到过高斯模糊对其效果很好. 但要是在计算着色器进行高斯模糊, 还要把阴影部分单独渲染到一张纹理上进行模糊再叠加回去, 一是很耗性能, 二是很麻烦.  
+对于这样的噪点与摩尔纹, 在虎书上看到过高斯模糊对其效果很好. 但这要把阴影部分单独渲染到一张纹理上进行模糊再叠加回去, 一是很耗性能, 二是很麻烦.  
 后面参考了 Games 202 作业1的框架, 其中对于每个纹理坐标都重新生成一次随机的泊松分布盘, 只需增大一些泊松分布盘以及采样数量即可得到较好的软阴影, 效果如下:  
   ![shadow3](https://user-images.githubusercontent.com/79561572/166133134-6e5982a6-d952-4256-b859-9b29011d032b.png)  
 <p align="center">3. 每次重新生成泊松分布盘 </p><br>  
