@@ -109,7 +109,7 @@ https://developer.download.nvidia.com/whitepapers/2008/PCSS_Integration.pdf
 ![shadow2-2](https://user-images.githubusercontent.com/79561572/166132338-4d9deaf1-848b-4ccd-984f-0032dfd454c8.png)  
 <p align="center">2. 阴影噪点与摩尔纹 </p><br>  
 
-对于这样的噪点与摩尔纹, 或许可以通过计算着色器对其进行高斯模糊来改善, 但这又太消耗性能.  
+对于这样的噪点与摩尔纹, 在虎书上看到过高斯模糊对其效果很好. 但要是在计算着色器进行高斯模糊, 还要把阴影部分单独渲染到一张纹理上进行模糊再叠加回去, 一是很耗性能, 二是很麻烦.  
 后面参考了 Games 202 作业1的框架, 其中对于每个纹理坐标都重新生成一次随机的泊松分布盘, 只需增大一些泊松分布盘以及采样数量即可得到较好的软阴影, 效果如下:  
   ![shadow3](https://user-images.githubusercontent.com/79561572/166133134-6e5982a6-d952-4256-b859-9b29011d032b.png)  
 <p align="center">3. 每次重新生成泊松分布盘 </p><br>  
