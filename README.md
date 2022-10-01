@@ -23,6 +23,8 @@ MSBuild 8020错误 : 项目代码都使用Visual Studio 2019构建, 若使用低
 
 [6.延迟渲染](#延迟渲染)
 
+[7.屏幕空间反射](#SSR)
+
 [7.PBR](#PBR)
 
 ## 几何着色器
@@ -164,6 +166,15 @@ https://developer.download.nvidia.com/whitepapers/2008/PCSS_Integration.pdf
 
 
 <p align="center"><a href="#DX12">🔙 返回目录 🔙</a></p><br>
+
+
+## SSR
+### 1. 实现概述
+复用前面延迟渲染的部分来做的实现, 主要问题出在步长和深度容差, 步长稍大时会分层, 容差稍大时则会糊成一片. 面多加水, 水多加面, 调了半天效果都不是很满意.
+
+### 2. 效果
+![SSR](https://user-images.githubusercontent.com/79561572/193404497-a1cca2fd-0236-478e-80bd-894cd68ad7f9.png)
+
 
 ## PBR
 ### 1. PBR实现概述
